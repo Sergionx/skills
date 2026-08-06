@@ -1,0 +1,11 @@
+{
+  "name": "sergionx-skills",
+  "owner": { "name": "Sergionx" },
+  "plugins": [
+    {
+      "name": "jira-mcp-sync",
+      "source": "./",
+      "skills": ["./skills/jira-mcp-sync"]
+    }
+  ]
+}
