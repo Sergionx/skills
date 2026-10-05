@@ -49,10 +49,13 @@ Overall: `NON_COMPLIANT` if any applicable item is `FAIL`; otherwise `MANUAL_REV
 | Prescription | Beneficiary | `beneficiary` |
 | Prescription | Treatment type | `treatment_type` |
 | Prescription | Prescription date | `prescription_date` |
+| Invoice | Pharmacy RIF (taken from the invoice header) | `pharmacy_rif` |
 | Invoice | State where the purchase was made | `purchase_state` |
 | Invoice | Invoice number | `invoice_number` |
 | Invoice | Invoice date | `invoice_date` |
 | Invoice | Invoice amount (with currency) | `invoice_amount` |
+
+Pharmacy RIF is the tax ID printed on the invoice (format `J-12345678-9`: letter `J`/`G`/`V`/`E`/`P`/`C`, 8 digits, check digit). Take it only from the invoice, never from the prescription, and never confuse it with the prescriber's cédula/RIF. Redact it in evidence; transcribe the full value only once judged legible, else `null`.
 
 Dates use ISO `YYYY-MM-DD`; flag ambiguous day/month order as `UNVERIFIABLE`. Extracted values are shown only to the requesting user, never persisted or shared.
 

@@ -61,11 +61,12 @@
     "extraction": {
       "type": "object",
       "description": "Present only after the user accepts extraction. Values are null unless the field is legible.",
-      "required": ["beneficiary", "treatment_type", "prescription_date", "purchase_state", "invoice_number", "invoice_date", "invoice_amount"],
+      "required": ["beneficiary", "treatment_type", "prescription_date", "pharmacy_rif", "purchase_state", "invoice_number", "invoice_date", "invoice_amount"],
       "properties": {
         "beneficiary": { "$ref": "#/$defs/field" },
         "treatment_type": { "$ref": "#/$defs/field" },
         "prescription_date": { "$ref": "#/$defs/field" },
+        "pharmacy_rif": { "$ref": "#/$defs/field" },
         "purchase_state": { "$ref": "#/$defs/field" },
         "invoice_number": { "$ref": "#/$defs/field" },
         "invoice_date": { "$ref": "#/$defs/field" },
