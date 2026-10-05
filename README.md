@@ -23,6 +23,8 @@ npx skills add Sergionx/skills jira-mcp-sync
 npx skills add Sergionx/skills venezuelan-prescription-pdf-validator
 npx skills add Sergionx/skills minuta
 npx skills add Sergionx/skills transcribe-whisperx
+npx skills add Sergionx/skills smoke-checklist-generator
+npx skills add Sergionx/skills jira-done-state-reconciliation
 ```
 
 Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-updates on pull):
@@ -32,6 +34,8 @@ Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-u
 /plugin install jira-mcp-sync@sergionx-skills
 /plugin install venezuelan-prescription-pdf-validator@sergionx-skills
 /plugin install minutas-toolkit@sergionx-skills
+/plugin install smoke-checklist-generator@sergionx-skills
+/plugin install jira-done-state-reconciliation@sergionx-skills
 ```
 
 ## Skills
@@ -42,6 +46,8 @@ Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-u
 | [`venezuelan-prescription-pdf-validator`](skills/venezuelan-prescription-pdf-validator/SKILL.md) | Page-cited completeness screening for Venezuelan medical prescription PDFs, including pediatric and seven-day conditional checks |
 | [`minuta`](skills/minuta/SKILL.md) | Generate standardized Spanish meeting minutes (HTML + Confluence-ready Markdown) from a transcript |
 | [`transcribe-whisperx`](skills/transcribe-whisperx/SKILL.md) | Run WhisperX on a meeting recording to produce txt/srt/vtt/json/tsv transcripts |
+| [`smoke-checklist-generator`](skills/smoke-checklist-generator/SKILL.md) | Manual smoke-testing checklist from spec and tasks, as a human gate between a clean `sdd-verify` and `sdd-archive` |
+| [`jira-done-state-reconciliation`](skills/jira-done-state-reconciliation/SKILL.md) | After a clean `sdd-verify`, reconcile Jira ticket status with task completion and propose Done transitions gated on approval |
 
 ## License
 

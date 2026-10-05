@@ -26,6 +26,22 @@
         "./skills/minuta",
         "./skills/transcribe-whisperx"
       ]
+    },
+    {
+      "name": "smoke-checklist-generator",
+      "source": "./",
+      "description": "Generate a manual smoke-testing checklist from spec and tasks as a human gate between sdd-verify and sdd-archive.",
+      "skills": [
+        "./skills/smoke-checklist-generator"
+      ]
+    },
+    {
+      "name": "jira-done-state-reconciliation",
+      "source": "./",
+      "description": "After a clean sdd-verify, reconcile Jira ticket status with task completion and propose Done transitions gated on approval.",
+      "skills": [
+        "./skills/jira-done-state-reconciliation"
+      ]
     }
   ]
 }
