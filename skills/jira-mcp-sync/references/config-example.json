@@ -1,0 +1,10 @@
+{
+  "cloudId": "your-site.atlassian.net",
+  "projectKey": "PROJ",
+  "issueType": "Task",
+  "subtaskIssueType": "Subtask",
+  "assigneeAccountId": "712020:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "sprintFieldId": "customfield_10020",
+  "storyPointFieldId": "customfield_10016",
+  "blockingLinkTypeName": "Blocks"
+}

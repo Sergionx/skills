@@ -1,0 +1,541 @@
+<title>Minuta · Reunión Aclaratoria — Modelo de Datos</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --bg-panel: #111b2e;
+    --bg-panel-alt: #16233a;
+    --line: rgba(148, 178, 216, 0.14);
+    --line-strong: rgba(148, 178, 216, 0.28);
+    --teal: #4fd1c5;
+    --teal-dim: rgba(79, 209, 197, 0.14);
+    --amber: #f4b860;
+    --amber-dim: rgba(244, 184, 96, 0.14);
+    --text: #eaf1fb;
+    --text-muted: #93a2bf;
+    --text-faint: #5c6b87;
+    --mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, "Segoe UI", "Inter", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(148,178,216,0.10) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  a { color: var(--teal); }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    padding: 72px 0 40px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 0 0 18px;
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 28px;
+    max-width: 14ch;
+  }
+
+  .schema-card {
+    border: 1px solid var(--line-strong);
+    background: var(--bg-panel);
+    border-radius: 10px;
+    overflow: hidden;
+    animation: rise 0.5s ease-out both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .schema-card { animation: none; }
+  }
+
+  .schema-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-panel-alt);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .schema-card-head .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 3px var(--teal-dim);
+  }
+
+  .schema-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 8px 20px;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .schema-row:last-child { border-bottom: none; }
+
+  .schema-field {
+    font-family: var(--mono);
+    color: var(--teal);
+    font-size: 13px;
+  }
+  .schema-field .pk {
+    color: var(--amber);
+    font-size: 11px;
+    margin-right: 6px;
+    font-weight: 600;
+  }
+
+  .schema-value { color: var(--text); }
+  .schema-value .muted { color: var(--text-muted); }
+
+  /* ---------- SECTIONS ---------- */
+
+  section { margin-top: 64px; }
+
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 10px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 650;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .lead {
+    color: var(--text-muted);
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 68ch;
+  }
+
+  .topic {
+    border-left: 2px solid var(--line-strong);
+    padding-left: 20px;
+    margin-top: 32px;
+  }
+
+  .topic h3 {
+    font-size: 16px;
+    font-weight: 650;
+    margin: 0 0 10px;
+    color: var(--text);
+  }
+
+  .topic ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-muted);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  .topic li { margin-bottom: 8px; }
+  .topic li:last-child { margin-bottom: 0; }
+
+  .topic code, .lead code, .ticket code {
+    font-family: var(--mono);
+    background: var(--bg-panel-alt);
+    border: 1px solid var(--line);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--teal);
+  }
+
+  /* ---------- DECISIONS ---------- */
+
+  .decisions {
+    display: grid;
+    gap: 12px;
+  }
+
+  .decision {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .decision .mark {
+    font-family: var(--mono);
+    color: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .decision p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text); }
+
+  /* ---------- TICKETS (pendientes) ---------- */
+
+  .tickets { display: grid; gap: 10px; }
+
+  .ticket {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 16px;
+    padding: 16px 18px;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 0.15s ease;
+  }
+  .ticket:hover { border-color: var(--line-strong); }
+
+  .ticket-owner {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .ticket p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text); }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    background: var(--amber-dim);
+    border: 1px solid rgba(244, 184, 96, 0.3);
+    padding: 4px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* ---------- DIRECTORY TABLE ---------- */
+
+  .directory {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .directory th {
+    text-align: left;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding: 0 14px 10px 0;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .directory td {
+    padding: 13px 14px 13px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  .directory td:first-child { color: var(--text); font-weight: 550; }
+  .directory td.mono { font-family: var(--mono); font-size: 13px; color: var(--teal); }
+
+  .table-scroll { overflow-x: auto; }
+
+  /* ---------- GLOSSARY ---------- */
+
+  .glossary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .gloss-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .gloss-term {
+    font-family: var(--mono);
+    color: var(--teal);
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .gloss-def { color: var(--text-muted); font-size: 14px; line-height: 1.55; }
+
+  /* ---------- FOOTNOTE ---------- */
+
+  .footnote {
+    margin-top: 72px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--text-faint);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 560px) {
+    .hero { padding-top: 48px; }
+    .schema-row { grid-template-columns: 1fr; }
+    .ticket { grid-template-columns: 1fr; }
+    .badge { justify-self: start; }
+    .gloss-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="hero">
+    <p class="hero-eyebrow">Minuta · Gobierno de datos</p>
+    <h1>Reunión aclaratoria sobre el modelo de datos de encuestas</h1>
+
+    <div class="schema-card">
+      <div class="schema-card-head">
+        <span class="dot"></span>
+        tabla&nbsp;·&nbsp;reunion_aclaratoria
+      </div>
+      <div class="schema-row">
+        <span class="schema-field"><span class="pk">PK</span>fecha</span>
+        <span class="schema-value">20/07/2026 <span class="muted">(según metadata del archivo)</span></span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">duracion</span>
+        <span class="schema-value">1h 09min</span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">owner_negocio</span>
+        <span class="schema-value">Karina Jiménez — Modelado de datos / DBA</span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">participantes</span>
+        <span class="schema-value">Karina Jiménez, Fernando, Sergio, Marco, Zaidibet Ramos <span class="muted">(equipo visitante)</span></span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">tema</span>
+        <span class="schema-value">Modelo de datos de encuestas, gobernanza de tablas y proceso de solicitud</span>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <p class="section-eyebrow">Resumen</p>
+    <h2>De qué trató la reunión</h2>
+    <p class="lead">
+      El equipo visitante (Fernando, Sergio, Marco y colegas) se reunió con Karina Jiménez,
+      modeladora de datos / DBA del área de Estudios Económicos, para entender el modelo de
+      datos actual de las encuestas económicas (<code>EMU</code> / <code>MUI</code>, precios,
+      sector privado no financiero), la diferencia entre tablas corporativas y tablas propias
+      de cada negocio, y el proceso formal que el banco exige para crear tablas, esquemas o
+      aplicaciones nuevas.
+    </p>
+  </section>
+
+  <section>
+    <p class="section-eyebrow">Detalle</p>
+    <h2>Temas tratados</h2>
+
+    <div class="topic">
+      <h3>Modelo de datos y propiedad (ownership)</h3>
+      <ul>
+        <li>El modelo <code>MUI</code> tiene hoy un solo <em>owner</em>; se busca que soporte varios owners.</li>
+        <li>Existen tablas corporativas compartidas entre sistemas (instituciones, calendario) frente a tablas propias de cada negocio (p. ej. <code>EPR</code> — índice de precio referencial, con submodelos <code>EMU</code>, <code>MST</code>, <code>OVOC</code>, <code>CICO</code>).</li>
+        <li>Lo que el equipo visitante puede ver hoy es solo un visor (<em>Viewer</em>) de solo lectura: no permite crear ni editar tablas directamente.</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Sistema de encuestas</h3>
+      <ul>
+        <li>Hoy la validación de cada cuestionario vive en lógica de cliente (PowerBuilder) por script; cada regla nueva exige programar de cero.</li>
+        <li>Ya hubo un intento previo de validador genérico (con operadores tipo numerador/denominador y dependencias entre preguntas) que no se terminó de implementar.</li>
+        <li>Objetivo del equipo visitante: que el cliente genere un JSON con el esquema del cuestionario, el backend lo valide y arme un esquema dinámico persistido en base de datos — hoy esas reglas solo existen en scripts, no son consultables.</li>
+        <li>Jerarquía de negocio confirmada: <code>Encuesta → Cuestionarios → Secciones → Preguntas</code>, cada cuestionario con sus propias reglas y dependencias.</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Estándares y proceso de solicitud</h3>
+      <ul>
+        <li>Toda tabla o aplicación nueva pasa por <strong>Ingeniería de Procesos (DIP)</strong> y se canaliza como ticket a través del <strong>DAU</strong> (Departamento de Atención al Usuario, ext. 8777).</li>
+        <li>Karina administra los códigos de aplicación (4 letras) y la tabla maestra de aplicaciones del banco.</li>
+        <li>Existe una plantilla Excel — <em>"solicitud de requerimientos para modelado de datos"</em> — donde se documentan tablas, campos, tipo de clave y restricciones; es la entrada estándar para que Karina modele.</li>
+        <li>Los nombres de tabla y campo están limitados a 18 caracteres (30 para referencias y secuencias), de ahí nacen abreviaciones poco intuitivas como <code>pregunta_cuest</code>.</li>
+        <li>Las claves compuestas son el estándar histórico en Estudios Económicos desde los años 90 (integridad de datos); otras áreas del banco sí usan IDs autogenerados. Karina recomienda mantener claves compuestas dado el volumen de registros.</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Acceso a herramientas</h3>
+      <ul>
+        <li>Power Designer requiere licencia atada a una máquina específica; el equipo visitante aún no tiene equipos asignados ni licencia.</li>
+        <li>El acceso al modelo/visor debe solicitarse al jefe de área (Alexander/Ángel).</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>Logística</h3>
+      <ul>
+        <li>La gerencia de sistemas se reubicará próximamente al piso 23 (hoy distribuida entre los pisos 7, 18, 19 y 22).</li>
+        <li>La planta eléctrica de respaldo solo cubre hasta el piso 12 — riesgo a validar antes de subir a pisos superiores.</li>
+        <li>Los ascensores están en mantenimiento (cambio de poleas) durante estas semanas.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-eyebrow">Acuerdos</p>
+    <h2>Decisiones</h2>
+    <div class="decisions">
+      <div class="decision">
+        <span class="mark">→</span>
+        <p>El equipo visitante construirá primero un esquema de datos <strong>aislado</strong>; solo después coordinará con Karina cualquier modificación al modelo existente.</p>
+      </div>
+      <div class="decision">
+        <span class="mark">→</span>
+        <p>Karina queda como punto de contacto para estándares de modelado, códigos de aplicación y plantillas de solicitud.</p>
+      </div>
+      <div class="decision">
+        <span class="mark">→</span>
+        <p>El equipo visitante contactará formalmente a Ingeniería de Procesos (DIP) para obtener el estándar de levantamiento de requisitos, previo al modelado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-eyebrow">Seguimiento</p>
+    <h2>Pendientes</h2>
+    <div class="tickets">
+      <div class="ticket">
+        <div>
+          <p class="ticket-owner">Karina</p>
+          <p>Enviar plantilla Excel de solicitud de tablas, documento de creación de código de aplicación, estándares de nomenclatura y documento de procesos de negocio (Confluence).</p>
+        </div>
+        <span class="badge">Pendiente</span>
+      </div>
+      <div class="ticket">
+        <div>
+          <p class="ticket-owner">Equipo visitante</p>
+          <p>Abrir ticket con el DAU (ext. 8777) para gestión de accesos/equipos, dirigido a Alexis/John Herrera.</p>
+        </div>
+        <span class="badge">Pendiente</span>
+      </div>
+      <div class="ticket">
+        <div>
+          <p class="ticket-owner">Equipo visitante</p>
+          <p>Solicitar a Alexander/Ángel (jefe de área) el acceso o licencia de Power Designer, o coordinar visualización del modelo con apoyo de un analista.</p>
+        </div>
+        <span class="badge">Pendiente</span>
+      </div>
+      <div class="ticket">
+        <div>
+          <p class="ticket-owner">Equipo visitante</p>
+          <p>Contactar a Ingeniería de Procesos (DIP) para obtener el estándar de requisitos previo al modelado.</p>
+        </div>
+        <span class="badge">Pendiente</span>
+      </div>
+      <div class="ticket">
+        <div>
+          <p class="ticket-owner">Noemí</p>
+          <p>Corregir el nombre mal escrito en el correo institucional de Zaidibet (Zaidybeth) Ramos.</p>
+        </div>
+        <span class="badge">Pendiente</span>
+      </div>
+      <div class="ticket">
+        <div>
+          <p class="ticket-owner">Gerencia</p>
+          <p>Escalar la limitación de la planta eléctrica de respaldo (solo hasta el piso 12) antes de la mudanza al piso 23.</p>
+        </div>
+        <span class="badge">Pendiente</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-eyebrow">Referencia</p>
+    <h2>Directorio</h2>
+    <div class="table-scroll">
+      <table class="directory">
+        <thead>
+          <tr><th>Nombre</th><th>Rol</th><th>Contacto</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Karina Mariel Jiménez González</td><td>Modeladora de datos / DBA</td><td class="mono">ext. 7769 (abrev. 623)</td></tr>
+          <tr><td>Alexander / Ángel</td><td>Jefe de área — accesos y licencias Power Designer</td><td class="mono">—</td></tr>
+          <tr><td>Alexis / John Herrera</td><td>Gestión de tickets de ambiente de desarrollo</td><td class="mono">—</td></tr>
+          <tr><td>Noemí</td><td>Corrección de datos de correo institucional</td><td class="mono">—</td></tr>
+          <tr><td>DAU</td><td>Departamento de Atención al Usuario — canal de tickets</td><td class="mono">ext. 8777</td></tr>
+          <tr><td>Zaidibet (Zaidybeth) Ramos</td><td>Equipo visitante</td><td class="mono">—</td></tr>
+          <tr><td>Fernando, Sergio, Marco</td><td>Equipo visitante</td><td class="mono">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-eyebrow">Glosario</p>
+    <h2>Términos y siglas</h2>
+    <div class="glossary">
+      <div class="gloss-row"><span class="gloss-term">DIP</span><span class="gloss-def">Departamento de Ingeniería de Procesos — define el estándar de levantamiento de requisitos previo al modelado.</span></div>
+      <div class="gloss-row"><span class="gloss-term">DAU</span><span class="gloss-def">Departamento de Atención al Usuario — canal de tickets para solicitudes (ext. 8777).</span></div>
+      <div class="gloss-row"><span class="gloss-term">EMU / MUI</span><span class="gloss-def">Nombre coloquial de un mismo modelo de datos; se usa indistintamente según quién lo nombre.</span></div>
+      <div class="gloss-row"><span class="gloss-term">EPR</span><span class="gloss-def">Índice de Precio Referencial — uno de los modelos de negocio revisados en la sesión.</span></div>
+      <div class="gloss-row"><span class="gloss-term">PK / FK</span><span class="gloss-def">Clave primaria / clave foránea.</span></div>
+      <div class="gloss-row"><span class="gloss-term">Compos Key</span><span class="gloss-def">Clave primaria compuesta por varios campos combinados; estándar histórico en Estudios Económicos.</span></div>
+      <div class="gloss-row"><span class="gloss-term">Power Designer</span><span class="gloss-def">Herramienta de modelado de datos usada por el banco, licenciada por máquina.</span></div>
+    </div>
+  </section>
+
+
+</div>

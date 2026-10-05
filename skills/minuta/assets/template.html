@@ -1,0 +1,104 @@
+<title>Minuta · {TITULO_CORTO}</title>
+<style>
+  :root {
+    --ink: #17262A; --ink-soft: #3E4F50; --paper: #EDF1EF; --paper-raised: #FFFFFF;
+    --line: #CFD8D4; --accent: #9C5023; --accent-soft: #F1E1D0; --teal: #2F615C;
+    --mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #E7EEEC; --ink-soft: #A9BAB8; --paper: #10171A; --paper-raised: #182226;
+      --line: #2B3A3D; --accent: #E0985A; --accent-soft: #2A2013; --teal: #7FBBB3; }
+  }
+  :root[data-theme="dark"] { --ink: #E7EEEC; --ink-soft: #A9BAB8; --paper: #10171A; --paper-raised: #182226;
+    --line: #2B3A3D; --accent: #E0985A; --accent-soft: #2A2013; --teal: #7FBBB3; }
+  :root[data-theme="light"] { --ink: #17262A; --ink-soft: #3E4F50; --paper: #EDF1EF; --paper-raised: #FFFFFF;
+    --line: #CFD8D4; --accent: #9C5023; --accent-soft: #F1E1D0; --teal: #2F615C; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, "Segoe UI", sans-serif; line-height: 1.6; }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .eyebrow { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--teal); margin: 0 0 0.5rem; }
+  h1 { font-size: clamp(24px, 5vw, 36px); font-weight: 650; letter-spacing: -0.01em; margin: 0 0 24px; max-width: 20ch; }
+  h2 { font-size: 20px; font-weight: 650; margin: 0 0 16px; }
+  .card { border: 1px solid var(--line); background: var(--paper-raised); border-radius: 10px; overflow: hidden; }
+  .row { display: grid; grid-template-columns: 150px 1fr; gap: 8px 20px; padding: 12px 18px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .row:last-child { border-bottom: none; }
+  .field { font-family: var(--mono); color: var(--teal); font-size: 13px; }
+  section { margin-top: 48px; }
+  .lead { color: var(--ink-soft); font-size: 16px; max-width: 68ch; }
+  .topic { border-left: 2px solid var(--line); padding-left: 18px; margin-top: 24px; }
+  .topic h3 { font-size: 15px; font-weight: 650; margin: 0 0 8px; }
+  .topic ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 14.5px; }
+  .topic li { margin-bottom: 6px; }
+  code { font-family: var(--mono); background: var(--accent-soft); padding: 1px 6px; border-radius: 4px; font-size: 0.9em; color: var(--accent); }
+  .decisions, .tickets { display: grid; gap: 10px; }
+  .decision, .ticket { padding: 14px 16px; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; }
+  .ticket { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: start; }
+  .ticket-owner { font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3px; }
+  .badge { font-family: var(--mono); font-size: 10px; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 3px 8px; white-space: nowrap; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: var(--ink-soft); padding: 0 12px 8px 0; border-bottom: 1px solid var(--line); }
+  td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .glossary { display: grid; gap: 2px; }
+  .gloss-row { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .gloss-term { font-family: var(--mono); color: var(--teal); font-weight: 600; font-size: 13px; }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Minuta · {CATEGORIA}</p>
+  <h1>{TITULO_REUNION}</h1>
+
+  <div class="card">
+    <div class="row"><span class="field">fecha</span><span>{FECHA} <em>(según metadata del archivo, si no fue confirmada verbalmente)</em></span></div>
+    <div class="row"><span class="field">duracion</span><span>{DURACION}</span></div>
+    <div class="row"><span class="field">participantes</span><span>{PARTICIPANTES}</span></div>
+    <div class="row"><span class="field">tema</span><span>{TEMA_UNA_LINEA}</span></div>
+  </div>
+
+  <section>
+    <h2>De qué trató la reunión</h2>
+    <p class="lead">{RESUMEN_2_4_FRASES}</p>
+  </section>
+
+  <section>
+    <h2>Temas tratados</h2>
+    <!-- un .topic por tema; usar sub-bullets con hechos concretos, no relleno -->
+    <div class="topic">
+      <h3>{NOMBRE_TEMA}</h3>
+      <ul><li>{HECHO_O_DISCUSION}</li></ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Decisiones</h2>
+    <div class="decisions">
+      <div class="decision">{DECISION_ACORDADA}</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pendientes</h2>
+    <div class="tickets">
+      <div class="ticket">
+        <div><p class="ticket-owner">{RESPONSABLE}</p><p>{ACCION_PENDIENTE}</p></div>
+        <span class="badge">Pendiente</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Directorio y Glosario son OPCIONALES: solo si hay 3+ contactos o 3+ siglas/términos que lo ameriten -->
+  <section>
+    <h2>Directorio</h2>
+    <table>
+      <thead><tr><th>Nombre</th><th>Rol</th><th>Contacto</th></tr></thead>
+      <tbody><tr><td>{NOMBRE}</td><td>{ROL}</td><td>{CONTACTO}</td></tr></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Términos y siglas</h2>
+    <div class="glossary">
+      <div class="gloss-row"><span class="gloss-term">{SIGLA}</span><span>{DEFINICION}</span></div>
+    </div>
+  </section>
+
+</div>
