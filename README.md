@@ -21,6 +21,8 @@ Via [skills.sh](https://www.skills.sh/):
 ```
 npx skills add Sergionx/skills jira-mcp-sync
 npx skills add Sergionx/skills venezuelan-prescription-pdf-validator
+npx skills add Sergionx/skills minuta
+npx skills add Sergionx/skills transcribe-whisperx
 ```
 
 Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-updates on pull):
@@ -29,6 +31,7 @@ Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-u
 /plugin marketplace add Sergionx/skills
 /plugin install jira-mcp-sync@sergionx-skills
 /plugin install venezuelan-prescription-pdf-validator@sergionx-skills
+/plugin install minutas-toolkit@sergionx-skills
 ```
 
 ## Skills
@@ -37,6 +40,8 @@ Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-u
 |---|---|
 | [`jira-mcp-sync`](skills/jira-mcp-sync/SKILL.md) | Jira overlap search + task-breakdown-to-ticket diff via the Atlassian MCP server, gated on explicit approval before any write |
 | [`venezuelan-prescription-pdf-validator`](skills/venezuelan-prescription-pdf-validator/SKILL.md) | Page-cited completeness screening for Venezuelan medical prescription PDFs, including pediatric and seven-day conditional checks |
+| [`minuta`](skills/minuta/SKILL.md) | Generate standardized Spanish meeting minutes (HTML + Confluence-ready Markdown) from a transcript |
+| [`transcribe-whisperx`](skills/transcribe-whisperx/SKILL.md) | Run WhisperX on a meeting recording to produce txt/srt/vtt/json/tsv transcripts |
 
 ## License
 
