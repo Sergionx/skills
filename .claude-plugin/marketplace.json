@@ -1,47 +1,35 @@
 {
   "name": "sergionx-skills",
   "owner": {
-    "name": "Sergionx"
+    "name": "Sergionx",
+    "email": "sergionx.dev@gmail.com"
   },
   "plugins": [
     {
       "name": "jira-mcp-sync",
-      "source": "./",
-      "skills": [
-        "./skills/jira-mcp-sync"
-      ]
+      "source": "./plugins/jira-mcp-sync",
+      "description": "Jira overlap search and task-breakdown-to-ticket diff via the Atlassian MCP server, gated on explicit approval."
     },
     {
       "name": "venezuelan-prescription-pdf-validator",
-      "source": "./",
-      "skills": [
-        "./skills/venezuelan-prescription-pdf-validator"
-      ]
+      "source": "./plugins/venezuelan-prescription-pdf-validator",
+      "description": "Page-cited completeness screening for Venezuelan medical prescription PDFs."
     },
     {
       "name": "minutas-toolkit",
-      "source": "./",
-      "description": "Transcribe meetings with WhisperX and generate standardized minutas (HTML + Confluence Markdown).",
-      "skills": [
-        "./skills/minuta",
-        "./skills/transcribe-whisperx"
-      ]
+      "source": "./plugins/minutas-toolkit",
+      "description": "Transcribe meetings with WhisperX and generate standardized minutas (HTML + Confluence Markdown)."
     },
     {
       "name": "smoke-checklist-generator",
-      "source": "./",
-      "description": "Generate a manual smoke-testing checklist from spec and tasks as a human gate between sdd-verify and sdd-archive.",
-      "skills": [
-        "./skills/smoke-checklist-generator"
-      ]
+      "source": "./plugins/smoke-checklist-generator",
+      "description": "Generate a manual smoke-testing checklist from spec and tasks as a human gate between sdd-verify and sdd-archive."
     },
     {
       "name": "jira-done-state-reconciliation",
-      "source": "./",
-      "description": "After a clean sdd-verify, reconcile Jira ticket status with task completion and propose Done transitions gated on approval.",
-      "skills": [
-        "./skills/jira-done-state-reconciliation"
-      ]
+      "source": "./plugins/jira-done-state-reconciliation",
+      "description": "After a clean sdd-verify, reconcile Jira ticket status with task completion and propose Done transitions gated on approval."
     }
-  ]
+  ],
+  "description": "Personal reusable skills by Sergionx."
 }

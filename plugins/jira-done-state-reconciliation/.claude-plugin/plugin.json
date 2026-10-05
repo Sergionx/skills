@@ -1,0 +1,8 @@
+{
+  "name": "jira-done-state-reconciliation",
+  "description": "After a clean sdd-verify, reconcile Jira ticket status with task completion and propose Done transitions gated on approval.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sergionx"
+  }
+}

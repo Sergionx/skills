@@ -1,0 +1,8 @@
+{
+  "name": "smoke-checklist-generator",
+  "description": "Generate a manual smoke-testing checklist from spec and tasks as a human gate between sdd-verify and sdd-archive.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sergionx"
+  }
+}

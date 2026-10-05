@@ -1,0 +1,8 @@
+{
+  "name": "minutas-toolkit",
+  "description": "Transcribe meetings with WhisperX and generate standardized minutas (HTML + Confluence Markdown).",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sergionx"
+  }
+}

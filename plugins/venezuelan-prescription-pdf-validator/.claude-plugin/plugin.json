@@ -1,0 +1,8 @@
+{
+  "name": "venezuelan-prescription-pdf-validator",
+  "description": "Page-cited completeness screening for Venezuelan medical prescription PDFs.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sergionx"
+  }
+}

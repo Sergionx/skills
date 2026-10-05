@@ -1,0 +1,8 @@
+{
+  "name": "jira-mcp-sync",
+  "description": "Jira overlap search and task-breakdown-to-ticket diff via the Atlassian MCP server, gated on explicit approval.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sergionx"
+  }
+}

@@ -5,11 +5,15 @@ Personal, reusable [Claude Code](https://docs.claude.com/claude-code) / [skills.
 ## Layout
 
 ```
-skills/
-  <skill-name>/
-    SKILL.md
-    references/   # local docs the skill links to
-    assets/       # templates, schemas, fixtures
+.claude-plugin/marketplace.json
+plugins/
+  <plugin-name>/
+    .claude-plugin/plugin.json
+    skills/
+      <skill-name>/
+        SKILL.md
+        references/   # local docs the skill links to
+        assets/       # templates, schemas, fixtures
 ```
 
 Each `SKILL.md` follows the [Agent Skills](https://github.com/vercel-labs/skills) frontmatter contract (`name`, `description`, `license`, `metadata.author`, `metadata.version`) and the LLM-first style: short, imperative, decision tables over prose.
@@ -42,12 +46,12 @@ Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-u
 
 | Skill | Trigger |
 |---|---|
-| [`jira-mcp-sync`](skills/jira-mcp-sync/SKILL.md) | Jira overlap search + task-breakdown-to-ticket diff via the Atlassian MCP server, gated on explicit approval before any write |
-| [`venezuelan-prescription-pdf-validator`](skills/venezuelan-prescription-pdf-validator/SKILL.md) | Page-cited completeness screening for Venezuelan medical prescription PDFs, including pediatric and seven-day conditional checks |
-| [`minuta`](skills/minuta/SKILL.md) | Generate standardized Spanish meeting minutes (HTML + Confluence-ready Markdown) from a transcript |
-| [`transcribe-whisperx`](skills/transcribe-whisperx/SKILL.md) | Run WhisperX on a meeting recording to produce txt/srt/vtt/json/tsv transcripts |
-| [`smoke-checklist-generator`](skills/smoke-checklist-generator/SKILL.md) | Manual smoke-testing checklist from spec and tasks, as a human gate between a clean `sdd-verify` and `sdd-archive` |
-| [`jira-done-state-reconciliation`](skills/jira-done-state-reconciliation/SKILL.md) | After a clean `sdd-verify`, reconcile Jira ticket status with task completion and propose Done transitions gated on approval |
+| [`jira-mcp-sync`](plugins/jira-mcp-sync/skills/jira-mcp-sync/SKILL.md) | Jira overlap search + task-breakdown-to-ticket diff via the Atlassian MCP server, gated on explicit approval before any write |
+| [`venezuelan-prescription-pdf-validator`](plugins/venezuelan-prescription-pdf-validator/skills/venezuelan-prescription-pdf-validator/SKILL.md) | Page-cited completeness screening for Venezuelan medical prescription PDFs, including pediatric and seven-day conditional checks |
+| [`minuta`](plugins/minutas-toolkit/skills/minuta/SKILL.md) | Generate standardized Spanish meeting minutes (HTML + Confluence-ready Markdown) from a transcript |
+| [`transcribe-whisperx`](plugins/minutas-toolkit/skills/transcribe-whisperx/SKILL.md) | Run WhisperX on a meeting recording to produce txt/srt/vtt/json/tsv transcripts |
+| [`smoke-checklist-generator`](plugins/smoke-checklist-generator/skills/smoke-checklist-generator/SKILL.md) | Manual smoke-testing checklist from spec and tasks, as a human gate between a clean `sdd-verify` and `sdd-archive` |
+| [`jira-done-state-reconciliation`](plugins/jira-done-state-reconciliation/skills/jira-done-state-reconciliation/SKILL.md) | After a clean `sdd-verify`, reconcile Jira ticket status with task completion and propose Done transitions gated on approval |
 
 ## License
 
