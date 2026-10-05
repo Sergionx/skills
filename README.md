@@ -20,6 +20,7 @@ Via [skills.sh](https://www.skills.sh/):
 
 ```
 npx skills add Sergionx/skills jira-mcp-sync
+npx skills add Sergionx/skills venezuelan-prescription-pdf-validator
 ```
 
 Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-updates on pull):
@@ -27,6 +28,7 @@ Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-u
 ```
 /plugin marketplace add Sergionx/skills
 /plugin install jira-mcp-sync@sergionx-skills
+/plugin install venezuelan-prescription-pdf-validator@sergionx-skills
 ```
 
 ## Skills
@@ -34,6 +36,7 @@ Or via the Claude Code plugin marketplace (adds every skill in this repo, auto-u
 | Skill | Trigger |
 |---|---|
 | [`jira-mcp-sync`](skills/jira-mcp-sync/SKILL.md) | Jira overlap search + task-breakdown-to-ticket diff via the Atlassian MCP server, gated on explicit approval before any write |
+| [`venezuelan-prescription-pdf-validator`](skills/venezuelan-prescription-pdf-validator/SKILL.md) | Page-cited completeness screening for Venezuelan medical prescription PDFs, including pediatric and seven-day conditional checks |
 
 ## License
 

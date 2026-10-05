@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Venezuelan Prescription PDF Screening Report",
+  "type": "object",
+  "required": ["overall_result", "document_scope", "checks", "limitations", "manual_actions", "disclaimer"],
+  "properties": {
+    "overall_result": {
+      "enum": ["COMPLIANT", "NON_COMPLIANT", "MANUAL_REVIEW_REQUIRED"]
+    },
+    "document_scope": {
+      "type": "object",
+      "required": ["source", "pages_total", "pages_inspected", "methods"],
+      "properties": {
+        "source": { "type": "string" },
+        "pages_total": { "type": "integer", "minimum": 1 },
+        "pages_inspected": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        },
+        "methods": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "required": ["id", "verdict", "page", "evidence", "reason"],
+        "properties": {
+          "id": {
+            "enum": ["issuer_identity", "issue_date", "patient_identity", "pediatric_birth_date", "medication_directions", "doctor_stamp", "specialist_signature", "provider_contact", "seven_day_validity"]
+          },
+          "verdict": { "enum": ["PASS", "FAIL", "UNVERIFIABLE", "NOT_APPLICABLE"] },
+          "page": {
+            "oneOf": [
+              { "type": "integer", "minimum": 1 },
+              { "type": "array", "items": { "type": "integer", "minimum": 1 }, "uniqueItems": true },
+              { "type": "null" }
+            ]
+          },
+          "evidence": { "type": "string", "description": "Concise, redacted evidence or explicit statement that none is visible." },
+          "reason": { "type": "string" },
+          "calculation": {
+            "type": ["object", "null"],
+            "properties": {
+              "medicine_class": { "type": ["string", "null"] },
+              "issue_date": { "type": ["string", "null"], "format": "date" },
+              "reference_date": { "type": ["string", "null"], "format": "date" },
+              "valid_through": { "type": ["string", "null"], "format": "date" },
+              "elapsed_calendar_days": { "type": ["integer", "null"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "extraction": {
+      "type": "object",
+      "description": "Present only after the user accepts extraction. Values are null unless the field is legible.",
+      "required": ["beneficiary", "treatment_type", "prescription_date", "purchase_state", "invoice_number", "invoice_date", "invoice_amount"],
+      "properties": {
+        "beneficiary": { "$ref": "#/$defs/field" },
+        "treatment_type": { "$ref": "#/$defs/field" },
+        "prescription_date": { "$ref": "#/$defs/field" },
+        "purchase_state": { "$ref": "#/$defs/field" },
+        "invoice_number": { "$ref": "#/$defs/field" },
+        "invoice_date": { "$ref": "#/$defs/field" },
+        "invoice_amount": { "$ref": "#/$defs/field" }
+      },
+      "additionalProperties": false
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "manual_actions": { "type": "array", "items": { "type": "string" } },
+    "disclaimer": { "type": "string" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": ["legibility", "page", "value", "reason"],
+      "properties": {
+        "legibility": { "enum": ["PASS", "FAIL", "UNVERIFIABLE"] },
+        "page": { "type": ["integer", "null"], "minimum": 1 },
+        "value": { "type": ["string", "null"] },
+        "reason": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -6,6 +6,11 @@
       "name": "jira-mcp-sync",
       "source": "./",
       "skills": ["./skills/jira-mcp-sync"]
+    },
+    {
+      "name": "venezuelan-prescription-pdf-validator",
+      "source": "./",
+      "skills": ["./skills/venezuelan-prescription-pdf-validator"]
     }
   ]
 }
